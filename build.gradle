@@ -10,6 +10,9 @@ buildscript {
         coreKtxVersion = '1.1.0'
         constraintLayoutVersion = '1.1.3'
 
+        // Lifecycle
+        lifecycleExtensionsVersion = '2.1.0'
+
         // Testing
         junitVersion = '4.12'
         junitExtensionsVersion = '1.1.0'

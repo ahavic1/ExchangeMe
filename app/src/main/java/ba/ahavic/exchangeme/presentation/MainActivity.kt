@@ -1,7 +1,8 @@
-package ba.ahavic.exchangeme
+package ba.ahavic.exchangeme.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ba.ahavic.exchangeme.R
 
 class MainActivity : AppCompatActivity() {
 
