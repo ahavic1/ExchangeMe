@@ -1,3 +1,5 @@
+import java.util.function.BiConsumer
+
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
@@ -26,9 +28,23 @@ android {
             minifyEnabled false
             shrinkResources false
             debuggable true
-            buildConfigField "String", "clientId", "\"1a\""
-            buildConfigField "String", "clientSecret", "\"1a\""
-            buildConfigField "String", "baseUrl", "\"https://revolut.duckdns.org/\""
+            for (Map.Entry<String, String> entry : loadConfigIntoMap("debug").entrySet()) {
+                buildConfigField "String", entry.key, "\"${entry.value}\""
+            }
+        }
+
+        dev {
+            initWith(debug)
+            for (Map.Entry<String, String> entry : loadConfigIntoMap("dev").entrySet()) {
+                buildConfigField "String", entry.key, "\"${entry.value}\""
+            }
+        }
+
+        prod {
+            initWith(release)
+            for (Map.Entry<String, String> entry : loadConfigIntoMap("prod").entrySet()) {
+                buildConfigField "String", entry.key, "\"${entry.value}\""
+            }
         }
     }
 
@@ -70,4 +86,32 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$ktxCoroutinesVersion"
     androidTestImplementation "androidx.test.ext:junit:$junitExtensionsVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
+}
+
+android.variantFilter { variant ->
+    if (variant.buildType.name == 'release' || variant.buildType.name == 'debug') {
+        variant.setIgnore(true)
+    }
+}
+
+Properties loadConfig(String buildType) {
+    def props = new Properties()
+    def filename = buildType + ".properties"
+    try {
+        file(filename).withInputStream { props.load(it) }
+        return props
+    } catch (FileNotFoundException e) {
+        throw new Exception("Config not found ($filename). Check out config-example.properties file.")
+    }
+}
+
+HashMap<String, String> loadConfigIntoMap(String buildType) {
+    def map = new HashMap<String, String>()
+    loadConfig(buildType).forEach(new BiConsumer<Object, Object>() {
+        @Override
+        void accept(Object key, Object value) {
+            map.put(key, value)
+        }
+    })
+    return map
 }
