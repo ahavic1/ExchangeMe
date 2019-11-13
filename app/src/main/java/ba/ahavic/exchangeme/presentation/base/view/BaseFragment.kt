@@ -1,4 +1,4 @@
-package ba.ahavic.exchangeme.presentation.base
+package ba.ahavic.exchangeme.presentation.base.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
+import dagger.android.support.DaggerFragment
 
-abstract class BaseFragment<ViewDataBindingType: ViewDataBinding>: Fragment() {
+abstract class BaseFragment<ViewDataBindingType: ViewDataBinding>: DaggerFragment() {
 
     @get:LayoutRes
     abstract val layoutId: Int

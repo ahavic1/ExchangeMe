@@ -1,4 +1,4 @@
-package ba.ahavic.exchangeme.presentation.base
+package ba.ahavic.exchangeme.presentation.base.view
 
 import androidx.lifecycle.ViewModel
 
@@ -10,7 +10,7 @@ interface BoundView<ViewModelType: ViewModel> {
     /**
      * Provides the name of the ViewModel variable for data binding
      */
-    val viewModelId: Int
+    val viewModelNameRId: Int
 
     /**
      * Provides ViewModel or this View. ViewModel is injected into View and

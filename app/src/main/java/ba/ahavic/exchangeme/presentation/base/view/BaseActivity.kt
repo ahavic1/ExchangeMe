@@ -1,16 +1,18 @@
-package ba.ahavic.exchangeme.presentation.base
+package ba.ahavic.exchangeme.presentation.base.view
 
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleOwner
+import dagger.android.DaggerActivity
+import dagger.android.support.DaggerAppCompatActivity
 
-abstract class BaseActivity<ViewDataBindingType: ViewDataBinding> : AppCompatActivity() {
+abstract class BaseActivity<ViewDataBindingType: ViewDataBinding> : DaggerAppCompatActivity(), LifecycleOwner {
 
-    @get: LayoutRes
-    abstract var layoutId: Int
+    @get:LayoutRes
+    abstract val layoutId: Int
 
     protected lateinit var viewDataBinding: ViewDataBindingType
 
