@@ -2,6 +2,7 @@ package ba.ahavic.exchangeme.di
 
 import ba.ahavic.exchangeme.App
 import ba.ahavic.exchangeme.data.di.NetworkModule
+import ba.ahavic.exchangeme.data.rates.RatesDataModule
 import ba.ahavic.exchangeme.presentation.base.di.ActivityBuilder
 import ba.ahavic.exchangeme.presentation.base.di.ViewModelFactoryModule
 import dagger.Component
@@ -20,7 +21,8 @@ import javax.inject.Singleton
     ActivityBuilder::class,
 
     // Data
-    NetworkModule::class
+    NetworkModule::class,
+    RatesDataModule::class
 
 ])
 interface AppComponent : AndroidInjector<App> {

@@ -1,6 +1,7 @@
 package ba.ahavic.exchangeme.data.di
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoSet
@@ -70,4 +71,7 @@ abstract class NetworkModule {
             .build()
     }
 
+    @Binds
+    @Singleton
+    abstract fun provideDefaultNetworkConfig(networkConfig: DefaultNetworkConfig): NetworkConfig
 }

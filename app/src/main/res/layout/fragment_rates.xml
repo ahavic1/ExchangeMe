@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="ba.ahavic.exchangeme.presentation.main.RatesViewModel" />
+            type="ba.ahavic.exchangeme.presentation.main.rates.RatesViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

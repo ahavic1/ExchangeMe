@@ -28,7 +28,7 @@ android {
             debuggable true
             buildConfigField "String", "clientId", "\"1a\""
             buildConfigField "String", "clientSecret", "\"1a\""
-            buildConfigField "String", "baseUrl", "\"1a\""
+            buildConfigField "String", "baseUrl", "\"https://revolut.duckdns.org/\""
         }
     }
 
