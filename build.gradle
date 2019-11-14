@@ -14,6 +14,10 @@ buildscript {
         coreKtxVersion = '1.1.0'
         constraintLayoutVersion = '1.1.3'
 
+        // Navigation
+        navigationVersion = '2.2.0-rc02'
+        navigationSafeArgsPlugin = '1.0.0'
+
         // Lifecycle
         lifecycleExtensionsVersion = '2.1.0'
 
@@ -44,6 +48,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$navigationSafeArgsPlugin"
     }
 }
 

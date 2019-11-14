@@ -1,6 +1,8 @@
 package ba.ahavic.exchangeme.presentation.main
 
 import androidx.lifecycle.ViewModel
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import ba.ahavic.exchangeme.BR
 import ba.ahavic.exchangeme.R
 import ba.ahavic.exchangeme.databinding.ActivityMainBinding
@@ -22,8 +24,11 @@ class MainActivity : BaseBoundActivity<MainViewModel, ActivityMainBinding>() {
         get() = MainViewModel::class.java
 
     override fun bindToViewModel() {
-
+        setupActionBarWithNavController(findNavController(R.id.main_navigation_host))
     }
+
+    override fun onSupportNavigateUp() =
+        findNavController(R.id.main_navigation_host).navigateUp()
 }
 
 class MainViewModel @Inject constructor() : BaseViewModel() {
