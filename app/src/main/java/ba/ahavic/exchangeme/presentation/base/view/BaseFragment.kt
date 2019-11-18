@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import dagger.android.support.DaggerFragment
@@ -41,4 +42,8 @@ abstract class BaseFragment<ViewDataBindingType: ViewDataBinding>: DaggerFragmen
      * Called even when view is not inflated in which case [viewDataBinding] parameter is null.
      */
     protected open fun postInflate(viewDataBinding: ViewDataBinding?) { }
+
+    protected fun setToolbarTitle(title: String) {
+        (activity as AppCompatActivity).supportActionBar?.title = title
+    }
 }

@@ -1,5 +1,8 @@
 package ba.ahavic.exchangeme.data.di
 
+import ba.ahavic.exchangeme.data.models.RatesApi
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Binds
 import dagger.Module
@@ -62,13 +65,22 @@ abstract class NetworkModule {
         @Singleton
         @JvmStatic
         fun provideRetrofit(
-            okHttpClient: OkHttpClient, networkConfig: NetworkConfig
+            okHttpClient: OkHttpClient, networkConfig: NetworkConfig, gson: Gson
         ): Retrofit = Retrofit.Builder()
             .baseUrl(networkConfig.baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
             .client(okHttpClient)
             .build()
+
+        @Provides
+        @Singleton
+        @JvmStatic
+        fun providesGson() : Gson {
+            return GsonBuilder()
+                .registerTypeAdapter(RatesApi::class.java, GetRatesDeserializer())
+                .create()
+        }
     }
 
     @Binds

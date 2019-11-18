@@ -13,10 +13,6 @@ class App: DaggerApplication() {
     @Inject
     var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>? = null
 
-    override fun onCreate() {
-        super.onCreate()
-    }
-
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return DaggerAppComponent.builder().create(this)
     }

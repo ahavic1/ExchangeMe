@@ -1,5 +1,9 @@
 package ba.ahavic.exchangeme.data.models
 
-data class RatesApi(val base: String, val date: String, val rates: List<RateApi>)
+import java.math.BigDecimal
 
-data class RateApi(val currency: String, val amount: Double)
+data class RatesApi(val base: String, val date: String, val rates: List<Rate>)
+
+data class Rate(val currency: Currency, var amount: BigDecimal)
+
+

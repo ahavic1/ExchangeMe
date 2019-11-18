@@ -12,5 +12,5 @@ abstract class ActivityBuilder {
 
     @ActivityScope
     @ContributesAndroidInjector(modules = [MainModule::class, MainFragmentBuilder::class])
-    abstract fun provideMainActivity(): MainActivity
+    abstract fun providesMainActivity(): MainActivity
 }

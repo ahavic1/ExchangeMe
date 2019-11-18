@@ -1,6 +1,10 @@
 package ba.ahavic.exchangeme.presentation.main.rates
 
+import android.content.Context
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ba.ahavic.exchangeme.BR
 import ba.ahavic.exchangeme.R
 import ba.ahavic.exchangeme.databinding.FragmentRatesBinding
@@ -12,6 +16,14 @@ import dagger.multibindings.IntoMap
 
 class RatesFragment: BaseBoundFragment<RatesViewModel, FragmentRatesBinding>() {
 
+    private val ratesAdapter: RatesAdapter by lazy {
+        RatesAdapter(viewModel)
+    }
+
+    private val linearLayoutManager: CustomLinearLayoutManager by lazy {
+        CustomLinearLayoutManager(context!!)
+    }
+
     override val layoutId: Int
         get() = R.layout.fragment_rates
     override val viewModelNameRId: Int
@@ -20,6 +32,34 @@ class RatesFragment: BaseBoundFragment<RatesViewModel, FragmentRatesBinding>() {
         get() = RatesViewModel::class.java
 
     override fun bindToViewModel() {
+        setUI()
+        setListeners()
+        setObservers()
+    }
+
+    private fun setUI() {
+        setToolbarTitle("Rates")
+
+        viewDataBinding.recyclerRates.run {
+            adapter = ratesAdapter
+            layoutManager = linearLayoutManager
+        }
+    }
+
+    private fun setListeners() {
+        linearLayoutManager.addOnLayoutChangedListener(object : CustomLinearLayoutManager.OnLayoutChanged {
+            override fun itemsMoved(recyclerView: RecyclerView, from: Int, to: Int, itemCount: Int) {
+                recyclerView.scrollToPosition(to)
+            }
+        })
+    }
+
+    private fun setObservers() {
+        viewModel.ratesView.observe(viewLifecycleOwner, Observer { ratesView ->
+            if (ratesView != null && !linearLayoutManager.isInLayoutOrScroll()) {
+                ratesAdapter.setData(ratesView)
+            }
+        })
     }
 }
 

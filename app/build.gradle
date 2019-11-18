@@ -8,6 +8,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'androidx.navigation.safeargs'
+
 android {
     compileSdkVersion androidCompileSdkVersion
     defaultConfig {
@@ -20,7 +22,10 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
@@ -28,9 +33,6 @@ android {
             minifyEnabled false
             shrinkResources false
             debuggable true
-            for (Map.Entry<String, String> entry : loadConfigIntoMap("debug").entrySet()) {
-                buildConfigField "String", entry.key, "\"${entry.value}\""
-            }
         }
 
         dev {
@@ -50,6 +52,14 @@ android {
 
     dataBinding {
         enabled = true
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
     }
 }
 

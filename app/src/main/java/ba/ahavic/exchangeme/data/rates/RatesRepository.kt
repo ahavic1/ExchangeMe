@@ -1,31 +1,43 @@
 package ba.ahavic.exchangeme.data.rates
 
 import ba.ahavic.exchangeme.data.base.BaseRepository
+import ba.ahavic.exchangeme.data.base.asBody
 import ba.ahavic.exchangeme.data.models.RatesApi
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.produce
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.nio.channels.Channel
 import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
 
 interface RatesRepository {
-    @FlowPreview
-    suspend fun getRates(baseCurrency: String = "EUR"): Flow<RatesApi>
+    suspend fun getRates(baseCurrency: String = "EUR"): ReceiveChannel<RatesApi>
 }
 
 class RatesRepositoryImpl @Inject constructor(
     private val client: RatesClient
 ) : BaseRepository(), RatesRepository {
 
-    @FlowPreview
-    override suspend fun getRates(baseCurrency: String): Flow<RatesApi> {
-        TODO("not implemented")
+    @ExperimentalCoroutinesApi
+    override suspend fun getRates(baseCurrency: String): ReceiveChannel<RatesApi> {
+        return CoroutineScope(coroutineContext).produce {
+            while (true) {
+                val rates = client.getRatesAsync(baseCurrency)
+                    .await()
+                    .asBody()
+                send(rates)
+                delay(1_000)
+            }
+        }
     }
 }
 
 interface RatesClient {
     @GET("/latest")
-    fun getRatesAsync(@Query("base") base: String) : Deferred<Response<RatesApi>>
+    fun getRatesAsync(@Query("base") base: String): Deferred<Response<RatesApi>>
 }

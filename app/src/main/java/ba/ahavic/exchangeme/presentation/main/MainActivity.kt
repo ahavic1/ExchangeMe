@@ -25,6 +25,7 @@ class MainActivity : BaseBoundActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun bindToViewModel() {
         setupActionBarWithNavController(findNavController(R.id.main_navigation_host))
+        supportActionBar?.elevation = 0f
     }
 
     override fun onSupportNavigateUp() =

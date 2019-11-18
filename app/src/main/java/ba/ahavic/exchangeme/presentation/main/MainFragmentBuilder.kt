@@ -14,5 +14,5 @@ abstract class MainFragmentBuilder {
 
     @FragmentScope
     @ContributesAndroidInjector(modules = [RatesModule::class])
-    abstract fun providesMainFragment() : RatesFragment
+    abstract fun providesRatesFragment() : RatesFragment
 }

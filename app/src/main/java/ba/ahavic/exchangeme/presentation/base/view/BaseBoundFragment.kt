@@ -24,6 +24,10 @@ abstract class BaseBoundFragment<ViewModelType : BaseViewModel, ViewDataBindingT
         super.preInflate()
         viewModel = ViewModelProvider(this, viewModelFactory).get(viewModelClass)
         lifecycle.addObserver(viewModel)
+
+        arguments?.let {
+            viewModel.arguments = it
+        }
     }
 
     override fun postInflate(viewDataBinding: ViewDataBinding?) {
