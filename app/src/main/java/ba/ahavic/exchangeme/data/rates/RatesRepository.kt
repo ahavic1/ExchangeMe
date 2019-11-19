@@ -27,10 +27,12 @@ class RatesRepositoryImpl @Inject constructor(
     override suspend fun getRates(baseCurrency: String): ReceiveChannel<RatesApi> {
         return CoroutineScope(coroutineContext).produce {
             while (true) {
-                val rates = client.getRatesAsync(baseCurrency)
-                    .await()
-                    .asBody()
-                send(rates)
+                launch {
+                    val rates = client.getRatesAsync(baseCurrency)
+                        .await()
+                        .asBody()
+                    send(rates)
+                }
                 delay(1_000)
             }
         }
