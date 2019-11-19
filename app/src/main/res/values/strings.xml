@@ -7,6 +7,8 @@
     <string name="all_error_unknown_host_description">Uknown host. Please check if there is internet connection.</string>
     <string name="all_invalid_api_params">Invalid API parameters.</string>
 
+    <string name="rates_toolbar_title">Rates</string>
+
     <!-- Currencies names -->
     <string name="all_usd">US Dollar</string>
     <string name="all_eur">Euro</string>

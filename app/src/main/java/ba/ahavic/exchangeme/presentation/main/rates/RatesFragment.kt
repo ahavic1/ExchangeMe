@@ -1,9 +1,7 @@
 package ba.ahavic.exchangeme.presentation.main.rates
 
-import android.content.Context
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ba.ahavic.exchangeme.BR
 import ba.ahavic.exchangeme.R
@@ -38,7 +36,7 @@ class RatesFragment: BaseBoundFragment<RatesViewModel, FragmentRatesBinding>() {
     }
 
     private fun setUI() {
-        setToolbarTitle("Rates")
+        setToolbarTitle(R.string.rates_toolbar_title)
 
         viewDataBinding.recyclerRates.run {
             adapter = ratesAdapter

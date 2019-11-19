@@ -93,7 +93,7 @@ class RatesViewModel @Inject constructor(
     }
 }
 
-class RatesView(
+data class RatesView(
     val currencyCode: String,
     val currency: Int,
     val icon: Int,

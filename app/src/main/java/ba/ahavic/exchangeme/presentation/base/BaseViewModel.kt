@@ -7,9 +7,7 @@ import androidx.navigation.NavDirections
 import ba.ahavic.exchangeme.core.AppError
 import ba.ahavic.exchangeme.core.AppException
 import ba.ahavic.exchangeme.core.ReasonOfError
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.net.UnknownHostException
 
 abstract class BaseViewModel : ViewModel(), LifecycleObserver {

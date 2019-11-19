@@ -46,4 +46,8 @@ abstract class BaseFragment<ViewDataBindingType: ViewDataBinding>: DaggerFragmen
     protected fun setToolbarTitle(title: String) {
         (activity as AppCompatActivity).supportActionBar?.title = title
     }
+
+    protected fun setToolbarTitle(title: Int) {
+        (activity as AppCompatActivity).supportActionBar?.setTitle(title)
+    }
 }
